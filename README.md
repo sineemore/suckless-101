@@ -15,10 +15,16 @@ git clone https://github.com/sineemore/suckless-101.git
 
 ### Dependency
 
-The project uses [mdbook][mdbook-github] to build the book from markdown files, you
-can find installation instructions for mdbook on it's [readme][mdbook-github-install].
+The project uses
+[mdbook][mdbook-github]
+to build the book from markdown files, you
+can find installation instructions for mdbook on it's
+[readme][mdbook-github-install]
+.
 
-You can find detail instruction on using mdbook in its [user-guide][mdbook-user-guide].
+You can find detail instruction on using mdbook in its
+[user-guide][mdbook-user-guide]
+.
 
 ### Project structure
 
@@ -39,7 +45,10 @@ The project files are organized as follows:
 Things to keep in mind:
 
 1. When contributing feel free to add yourself to the authors list in `book.toml`.
-2. To create a new section or chapter, simply add an entry to `SUMMARY.md` and let mdbook create the required files for you. You can refer to [summary][mdbook-user-guide-summary] section in mdbook's user guide for details.
+2. To create a new section or chapter, simply add an entry to `SUMMARY.md` and let mdbook create the required files for you.
+You can refer to
+[summary][mdbook-user-guide-summary]
+section in mdbook's user guide for details.
 
 ### Building the book
 
