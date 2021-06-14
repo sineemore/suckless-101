@@ -16,14 +16,14 @@ git clone https://github.com/sineemore/suckless-101.git
 ### Dependency
 
 The project uses
-[mdbook][mdbook-github]
+[mdbook](https://github.com/rust-lang/mdBook)
 to build the book from markdown files, you
 can find installation instructions for mdbook on it's
-[readme][mdbook-github-install]
+[readme](https://github.com/rust-lang/mdBook#installation)
 .
 
 You can find detail instruction on using mdbook in its
-[user-guide][mdbook-user-guide]
+[user-guide](https://rust-lang.github.io/mdBook/)
 .
 
 ### Project structure
@@ -47,7 +47,7 @@ Things to keep in mind:
 1. When contributing feel free to add yourself to the authors list in `book.toml`.
 2. To create a new section or chapter, simply add an entry to `SUMMARY.md` and let mdbook create the required files for you.
 You can refer to
-[summary][mdbook-user-guide-summary]
+[summary](https://rust-lang.github.io/mdBook/format/summary.html)
 section in mdbook's user guide for details.
 
 ### Building the book
@@ -70,10 +70,3 @@ The book site is build with:
 mdbook build
 ```
 
-
-<!-- Refrences --!>
-
-[mdbook-github]: https://github.com/rust-lang/mdBook
-[mdbook-github-install]: https://github.com/rust-lang/mdBook#installation
-[mdbook-user-guide]: https://rust-lang.github.io/mdBook/
-[mdbook-user-guide-summary]: https://rust-lang.github.io/mdBook/format/summary.html
