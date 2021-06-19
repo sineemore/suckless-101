@@ -1,72 +1,117 @@
 suckless-101
 ============
 
-Down the rabbit hole.
+Guide on how to patch, compile and install suckless software.
 
-## Contributing
+Table of contents:
 
-### Cloning
+* [Introduction](#introduction)
+* [Git](#git)
+* [Toolchain](#toolchain)
+* [Manual pages](#manual-pages)
+* [Getting the source](#getting-the-source)
+* [Dependencies](#dependencies)
+* [Compiling](#compiling)
+* [Installing](#installing)
+* [Patching](#patching)
 
-To contribute to suckless-101 project, first clone it locally
+## Introduction
 
-```sh
-git clone https://github.com/sineemore/suckless-101.git
-```
+The guide explains how to patch, compile and install suckless software.
 
-### Dependency
+There are several topics on installing C compiler toolchain, getting dependencies and succesfully compiling the software.
 
-The project uses
-[mdbook](https://github.com/rust-lang/mdBook)
-to build the book from markdown files, you
-can find installation instructions for mdbook on it's
-[readme](https://github.com/rust-lang/mdBook#installation)
-.
+`dwm` is used for examples.
 
-You can find detail instruction on using mdbook in its
-[user-guide](https://rust-lang.github.io/mdBook/)
-.
+## Git
 
-### Project structure
+*to be written*
 
-The project files are organized as follows:
+## Toolchain
 
-```
-.
-├── book                   // Build files
-├── book.toml              // Meta-data
-├── README.md              // You are here!
-└── src                    // Source markdown files
-    ├── <chapter>
-    │    ├── intro.md      // Chapter introduction
-    │    └── <section>.md  // Section contents
-    └── SUMMARY.md         // Table of Contents
-```
+To successfully program compile source code you need to have a C compiler and several other tools installed on your systems.
 
-Things to keep in mind:
+* C compiler `gcc`, `clang` or `tcc`
+* `git`
+* `make`
+* `pkg-config`
+* `patch`
 
-1. When contributing feel free to add yourself to the authors list in `book.toml`.
-2. To create a new section or chapter, simply add an entry to `SUMMARY.md` and let mdbook create the required files for you.
-You can refer to
-[summary](https://rust-lang.github.io/mdBook/format/summary.html)
-section in mdbook's user guide for details.
+Some distributions provide a package that includes most of the desired tools:
 
-### Building the book
+* `base-devel` in Void Linux, Arch Linux
+* `build-essential` in Debian, Ubuntu
 
-#### Debugging
+You may find similar packages for other Linux distributions by searching for "build-essential equivalent [DISTRO NAME]".
 
-When editing the book you can get a live preview of the book using:
+After you've installed required tools ensure all of them present:
 
-```sh
-mdbook serve
-```
+    $ which gcc git make pkg-config patch
+    /usr/bin/gcc
+    /usr/bin/git
+    /usr/bin/make
+    /usr/local/bin/pkg-config
+    /usr/bin/patch
 
-This start a local http server that serves the book and automatically refreshes whenever changes are made to the book.
+## Manual pages
 
-#### Production
+To get documentation for installed programs use `man`:
 
-The book site is build with:
+    $ man patch
 
-```sh
-mdbook build
-```
+Most manual pages you will read with `man` will include a program description and comprehensive guide on command line parameters and configuration options.
 
+An important plus of reading man pages locally is that the manual page will provide documentation of the actual program you have installed and not some other older/newer version of it.
+
+## Getting the source
+
+After installing required tools you may continue with cloning the program source code.
+
+To get the source code of `dwm` use `git`:
+
+    $ git clone https://git.suckless.org/dwm
+    
+You may find source code of other programs by browsing suckless git repositories:
+
+https://git.suckless.org/
+
+## Dependencies
+
+Programs you have on your system require runtime and build dependencies. When using package manager to install software required dependencies are installed automatically.
+
+Before compiling the progran tools you'll need to install dependencies by hand.
+
+To find required dependencies examine `config.mk` and `Makefile`.
+
+For example `dwm` dependencies on Void Linux are satisfied by the following packages:
+
+* libX11-devel
+* libXft-devel
+* libXinerama-devel
+
+**NOTE:** It is important to install development variants of packages to get C header files required for compiling the source code.
+
+Another way to find dependencies would be to examine compile errors. Here error text says that `Xft.h` header file is missing:
+
+    drw.c:6:10: fatal error: X11/Xft/Xft.h: No such file or directory
+        6 | #include <X11/Xft/Xft.h>
+        |          ^~~~~~~~~~~~~~~
+
+Examine each error to find a name of a missing C header file and install the package which provides it.
+
+One way to quickly locate the desired package is by using a package manager or separate utility to search packages by filenames it contains.
+
+For example on Void Linux such program can be installed with `xtools` package:
+
+    $ xlocate Xft.h
+    libXft-devel-2.3.3_1	/usr/include/X11/Xft/Xft.h
+
+## Compiling
+
+To compile a program run `make` in its root directory:
+
+    $ make
+
+## Installation
+
+## Patching
