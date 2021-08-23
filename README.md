@@ -134,4 +134,17 @@ To compile a program run `make` in its root directory:
 
 ## Installation
 
+Typically, suckless software can be installed with (yes, after compiling):
+
+    $ sudo make install
+
+It needs `sudo` since the `make install` target needs access to directories such as `/usr/bin`.
+
 ## Patching
+
+Diffs are files that tell the differences between two files. With the difference, you can, for instance, include lines in a source code that create new functionality. There are lots of patches available for various suckless software. For patches on `dmenu`, for example, you can look the ones available on [http://tools.suckless.org/dmenu/patches/](http://tools.suckless.org/dmenu/patches/).
+
+The `patch` tool makes it simple to apply diffs to source code. You can simply:
+
+    $ patch -i your_patch.diff
+
