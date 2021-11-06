@@ -6,7 +6,6 @@ Guide on how to patch, compile and install suckless software.
 Table of contents:
 
 * [Introduction](#introduction)
-* [Git](#git)
 * [Toolchain](#toolchain)
 * [Manual pages](#manual-pages)
 * [Getting the source](#getting-the-source)
@@ -14,26 +13,20 @@ Table of contents:
 * [Compiling](#compiling)
 * [Installing](#installing)
 * [Patching](#patching)
+* [Customization](#customization)
 
 ## Introduction
 
 The guide explains how to patch, compile and install suckless software.
 
-There are several topics on installing C compiler toolchain, getting
-dependencies and succesfully compiling the software.
-
 `dwm` is used for examples.
-
-## Git
-
-*to be written*
 
 ## Toolchain
 
-To successfully compile program source code you need to have a C
-compiler and several other tools installed on your systems:
+To successfully compile program source code you'll need a C
+compiler and several other tools installed on your system:
 
-* C compiler `gcc`, `clang` or `tcc`
+* C compiler `gcc`, (`clang` or `tcc` should work as well)
 * `git`
 * `make`
 * `pkg-config`
@@ -46,7 +39,7 @@ tools:
 * `build-essential` in Debian, Ubuntu
 
 You may find similar packages for other Linux distributions by
-searching for "build-essential equivalent [DISTRO NAME]".
+searching for _"build-essential equivalent [DISTRO NAME]"_.
 
 After you've installed required tools ensure all of them present:
 
@@ -80,19 +73,14 @@ To get the source code of `dwm` use `git`:
 
     $ git clone https://git.suckless.org/dwm
     
-You may find source code of other programs by browsing suckless git
+You may find source code for other programs by browsing suckless git
 repositories:
 
 https://git.suckless.org/
 
 ## Dependencies
 
-Programs you have on your system require runtime and build
-dependencies. When using package manager to install software required
-dependencies are installed automatically.
-
-Before compiling the progran tools you'll need to install dependencies
-by hand.
+To compile program you'll need to install runtime and build dependencies.
 
 To find required dependencies examine `config.mk` and `Makefile`.
 
@@ -104,7 +92,7 @@ following packages:
 * libXinerama-devel
 
 **NOTE:** It is important to install development variants of packages
-to get C header files required for compiling the source code.
+to get C header files. These files are required to compile the source code.
 
 Another way to find dependencies would be to examine compile errors.
 Here error text says that `Xft.h` header file is missing:
@@ -117,8 +105,8 @@ Examine each error to find a name of a missing C header file and
 install the package which provides it.
 
 One way to quickly locate the desired package is by using a package
-manager or separate utility to search packages by filenames it
-contains.
+manager or a separate utility to search packages by filenames they
+contain.
 
 For example on Void Linux such program can be installed with `xtools`
 package:
@@ -132,19 +120,73 @@ To compile a program run `make` in its root directory:
 
     $ make
 
+In case of compilation errors:
+
+* check that required build tools present,
+* check missing dependencies.
+
 ## Installation
 
-Typically, suckless software can be installed with (yes, after compiling):
+Most suckless software will have a Makefile target to install built binaries,
+man files, etc.
 
-    $ sudo make install
+To install in home directory run
 
-It needs `sudo` since the `make install` target needs access to directories such as `/usr/bin`.
+    $ make PREFIX=$HOME/.local/ install
+
+This way you won't need root rights and program files won't mess with system
+files. This is a prefered way to install built software.
+
+**NOTE:** You'll need to add `$HOME/.local/bin` to your PATH variable.
+
+---
+
+To install system-wide run
+
+    # make install
+
+> Here `#` in front of command meens a root shell.
+> Run such commands as root user (with `sudo` for example).
+
 
 ## Patching
 
-Diffs are files that tell the differences between two files. With the difference, you can, for instance, include lines in a source code that create new functionality. There are lots of patches available for various suckless software. For patches on `dmenu`, for example, you can look the ones available on [http://tools.suckless.org/dmenu/patches/](http://tools.suckless.org/dmenu/patches/).
+Patches are files that tell the differences between two files. With the
+difference, you can, for instance, include lines in a source code that create
+new functionality.
 
-The `patch` tool makes it simple to apply diffs to source code. You can simply:
+There are lots of patches available for various suckless programs. You can find
+patches for `dwm` and others by browsing the website:
 
-    $ patch -i your_patch.diff
+https://tools.suckless.org/dwm/patches/
 
+Download patch file with `curl`:
+
+    $ curl -O https://dwm.suckless.org/patches/alpha/dwm-alpha-20201019-61bb8b2.diff
+
+Apply downloaded patch file with `patch` tool:
+
+    $ patch -i dwm-alpha-20201019-61bb8b2.diff
+
+Don't forget to rebuild and install program after you've made changes to source
+code.
+
+Some patches will change `config.def.h` file. This file is copied by Makefile
+once to `config.h` file. Remove `config.h` and run `make` or run `make -B`.
+**Note:** any changes you've made in config.h will be lost.
+
+In case you feel you are totally messed something run
+
+    $ git checkout .
+
+to undo changes made by patches (and you).
+
+Another way to manage patches is by using git branches.
+
+
+## Customization
+
+Most suckless programs are customized by editing source code or `config.h` file.
+
+Don't forget to rebuild and install program after you've made changes to source
+code.
