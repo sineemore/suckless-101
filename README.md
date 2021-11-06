@@ -11,7 +11,7 @@ Table of contents:
 * [Getting the source](#getting-the-source)
 * [Dependencies](#dependencies)
 * [Compiling](#compiling)
-* [Installing](#installing)
+* [Installation](#Installation)
 * [Patching](#patching)
 * [Customization](#customization)
 
