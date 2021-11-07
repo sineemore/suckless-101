@@ -186,7 +186,9 @@ Another way to manage patches is by using git branches.
 
 ## Customization
 
-Most suckless programs are customized by editing source code or `config.h` file.
+Most suckless programs are customized by editing source code or `config.h` file:
+
+https://dwm.suckless.org/customisation/
 
 Don't forget to rebuild and install program after you've made changes to source
 code.
